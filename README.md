@@ -39,9 +39,12 @@ definitiva. Si encuentras algo roto, a medio traducir o raro, abre un *issue* en
 
 1. Ve a la carpeta [`Instalador/`](Instalador/).
 2. Haz doble clic en `Instalar.bat`.
-3. Si no encuentra el juego automáticamente, indica la carpeta donde está instalado
+3. Si es la primera vez, el instalador comprobará si tienes .NET 9 Desktop Runtime; si no lo
+   tienes, lo descargará e instalará automáticamente (necesita Internet y puede pedir permiso
+   de administrador).
+4. Si no encuentra el juego automáticamente, indica la carpeta donde está instalado
    (la que contiene `Dangan3Win.exe`).
-4. Abre el juego directamente desde Steam: la traducción se carga sola.
+5. Abre el juego directamente desde Steam: la traducción se carga sola.
 
 Para desinstalar (volver al inglés), haz doble clic en `Desinstalar.bat` dentro de la misma carpeta.
 

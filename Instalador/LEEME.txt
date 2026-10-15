@@ -1,4 +1,4 @@
-﻿========================================================================
+========================================================================
  Danganronpa V3: Killing Harmony — Traducción al español
 ========================================================================
 
@@ -58,6 +58,10 @@ Requisitos
 ----------
 - Unos 40 MB de espacio libre en el disco.
 - Menos de 1 minuto de instalación.
+- Conexión a Internet (solo la primera vez): el instalador
+  comprobará si tienes .NET 9 Desktop Runtime instalado y,
+  si no lo tienes, lo descargará e instalará automáticamente.
+  Sin él, el juego no puede cargar la traducción.
 
 Cómo instalar
 -------------

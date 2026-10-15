@@ -58,6 +58,56 @@ Write-Host '  (metodo: Reloaded II portatil, no modifica los archivos del juego)
 Write-Host '=================================================================='
 Write-Host ''
 
+# ---------- 0. Comprobar que .NET 9 Desktop Runtime esta instalado ----------
+# Reloaded II necesita .NET 9 Desktop Runtime (x64) para funcionar.
+# Sin el, el juego mostrara "Unable to load Reloaded.Mod.Loader.Bootstrapper.asi. Error: 126".
+Write-Host 'Comprobando requisitos del sistema...' -ForegroundColor Cyan
+$dotnetOk = $false
+try {
+    $runtimes = & dotnet --list-runtimes 2>$null
+    if ($runtimes) {
+        $desktopRuntimes = $runtimes | Where-Object { $_ -match 'Microsoft\.WindowsDesktop\.App 9\.' }
+        if ($desktopRuntimes) { $dotnetOk = $true }
+    }
+} catch {}
+
+if (-not $dotnetOk) {
+    Write-Host ''
+    Write-Host '  No se ha encontrado .NET 9 Desktop Runtime en este equipo.' -ForegroundColor Yellow
+    Write-Host '  Es necesario para que la traduccion funcione.' -ForegroundColor Yellow
+    Write-Host '  Se va a descargar e instalar automaticamente (necesita conexion a Internet).' -ForegroundColor Yellow
+    Write-Host ''
+
+    $dotnetUrl = 'https://builds.dotnet.microsoft.com/dotnet/WindowsDesktop/9.0.7/windowsdesktop-runtime-9.0.7-win-x64.exe'
+    $dotnetInstaller = Join-Path $env:TEMP 'dotnet9-desktop-runtime.exe'
+
+    try {
+        Write-Host '  Descargando .NET 9 Desktop Runtime...' -ForegroundColor Cyan
+        [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+        (New-Object Net.WebClient).DownloadFile($dotnetUrl, $dotnetInstaller)
+        Write-Host '  Descargado. Instalando (puede pedir permiso de administrador)...' -ForegroundColor Cyan
+        $proc = Start-Process -FilePath $dotnetInstaller -ArgumentList '/install','/quiet','/norestart' -Wait -PassThru
+        if ($proc.ExitCode -ne 0 -and $proc.ExitCode -ne 3010) {
+            Write-Host "  La instalacion devolvio codigo $($proc.ExitCode). Si falla, instalalo manualmente:" -ForegroundColor Yellow
+            Write-Host '  https://dotnet.microsoft.com/en-us/download/dotnet/9.0' -ForegroundColor Yellow
+        } else {
+            Write-Host '  .NET 9 Desktop Runtime instalado correctamente.' -ForegroundColor Green
+        }
+    } catch {
+        Write-Host ''
+        Write-Host '  No se ha podido descargar automaticamente.' -ForegroundColor Red
+        Write-Host '  Por favor, instala .NET 9 Desktop Runtime (x64) manualmente desde:' -ForegroundColor Red
+        Write-Host '  https://dotnet.microsoft.com/en-us/download/dotnet/9.0' -ForegroundColor Cyan
+        Write-Host '  (busca "Desktop Runtime" > Windows x64 > descarga e instala)' -ForegroundColor Cyan
+        Write-Host ''
+        if (-not $NoPause) { Read-Host 'Pulsa Enter para salir' }
+        exit 1
+    }
+    Remove-Item $dotnetInstaller -Force -ErrorAction SilentlyContinue
+} else {
+    Write-Host '  .NET 9 Desktop Runtime: OK' -ForegroundColor Green
+}
+
 # ---------- 1. Localizar el juego ----------
 $dir = $GameDir
 if (-not (Test-GameRoot $dir)) { $dir = Find-GameRoot }
