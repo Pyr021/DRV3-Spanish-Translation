@@ -58,10 +58,53 @@ Write-Host '  (metodo: Reloaded II portatil, no modifica los archivos del juego)
 Write-Host '=================================================================='
 Write-Host ''
 
-# ---------- 0. Comprobar que .NET 9 Desktop Runtime esta instalado ----------
-# Reloaded II necesita .NET 9 Desktop Runtime (x64) para funcionar.
-# Sin el, el juego mostrara "Unable to load Reloaded.Mod.Loader.Bootstrapper.asi. Error: 126".
+# ---------- 0. Comprobar requisitos del sistema ----------
+# Reloaded II necesita dos cosas para funcionar:
+#   1) Visual C++ Redistributable 2015-2022 (x64) — proporciona vcruntime140.dll, msvcp140.dll
+#   2) .NET 9 Desktop Runtime (x64) — proporciona nethost.dll y el runtime de .NET
+# Sin alguno de ellos, el juego mostrara:
+#   "Unable to load Reloaded.Mod.Loader.Bootstrapper.asi. Error: 126"
 Write-Host 'Comprobando requisitos del sistema...' -ForegroundColor Cyan
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+
+function Install-Requisito {
+    param([string]$Nombre, [string]$Url, [string]$ArchivoTemp, [string[]]$Args)
+    Write-Host ''
+    Write-Host "  No se ha encontrado $Nombre en este equipo." -ForegroundColor Yellow
+    Write-Host '  Se va a descargar e instalar automaticamente (necesita Internet).' -ForegroundColor Yellow
+    try {
+        Write-Host "  Descargando $Nombre..." -ForegroundColor Cyan
+        (New-Object Net.WebClient).DownloadFile($Url, $ArchivoTemp)
+        Write-Host '  Descargado. Instalando (puede pedir permiso de administrador)...' -ForegroundColor Cyan
+        $proc = Start-Process -FilePath $ArchivoTemp -ArgumentList $Args -Wait -PassThru
+        if ($proc.ExitCode -ne 0 -and $proc.ExitCode -ne 3010) {
+            Write-Host "  Codigo de salida: $($proc.ExitCode). Si algo falla, instalalo manualmente." -ForegroundColor Yellow
+        } else {
+            Write-Host "  $Nombre instalado correctamente." -ForegroundColor Green
+        }
+    } catch {
+        Write-Host ''
+        Write-Host "  No se ha podido descargar $Nombre automaticamente." -ForegroundColor Red
+        Write-Host "  Instalalo manualmente y vuelve a ejecutar este instalador." -ForegroundColor Red
+        if (-not $NoPause) { Read-Host 'Pulsa Enter para salir' }
+        exit 1
+    }
+    Remove-Item $ArchivoTemp -Force -ErrorAction SilentlyContinue
+}
+
+# --- 0a. Visual C++ Redistributable 2015-2022 (x64) ---
+$vcOk = (Test-Path "$env:SystemRoot\System32\vcruntime140.dll") -and (Test-Path "$env:SystemRoot\System32\vcruntime140_1.dll")
+if (-not $vcOk) {
+    Install-Requisito `
+        -Nombre 'Visual C++ Redistributable 2015-2022 (x64)' `
+        -Url 'https://aka.ms/vs/17/release/vc_redist.x64.exe' `
+        -ArchivoTemp (Join-Path $env:TEMP 'vc_redist_x64.exe') `
+        -Args @('/install','/quiet','/norestart')
+} else {
+    Write-Host '  Visual C++ Redistributable: OK' -ForegroundColor Green
+}
+
+# --- 0b. .NET 9 Desktop Runtime (x64) ---
 $dotnetOk = $false
 try {
     $runtimes = & dotnet --list-runtimes 2>$null
@@ -72,41 +115,16 @@ try {
 } catch {}
 
 if (-not $dotnetOk) {
-    Write-Host ''
-    Write-Host '  No se ha encontrado .NET 9 Desktop Runtime en este equipo.' -ForegroundColor Yellow
-    Write-Host '  Es necesario para que la traduccion funcione.' -ForegroundColor Yellow
-    Write-Host '  Se va a descargar e instalar automaticamente (necesita conexion a Internet).' -ForegroundColor Yellow
-    Write-Host ''
-
-    $dotnetUrl = 'https://builds.dotnet.microsoft.com/dotnet/WindowsDesktop/9.0.7/windowsdesktop-runtime-9.0.7-win-x64.exe'
-    $dotnetInstaller = Join-Path $env:TEMP 'dotnet9-desktop-runtime.exe'
-
-    try {
-        Write-Host '  Descargando .NET 9 Desktop Runtime...' -ForegroundColor Cyan
-        [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
-        (New-Object Net.WebClient).DownloadFile($dotnetUrl, $dotnetInstaller)
-        Write-Host '  Descargado. Instalando (puede pedir permiso de administrador)...' -ForegroundColor Cyan
-        $proc = Start-Process -FilePath $dotnetInstaller -ArgumentList '/install','/quiet','/norestart' -Wait -PassThru
-        if ($proc.ExitCode -ne 0 -and $proc.ExitCode -ne 3010) {
-            Write-Host "  La instalacion devolvio codigo $($proc.ExitCode). Si falla, instalalo manualmente:" -ForegroundColor Yellow
-            Write-Host '  https://dotnet.microsoft.com/en-us/download/dotnet/9.0' -ForegroundColor Yellow
-        } else {
-            Write-Host '  .NET 9 Desktop Runtime instalado correctamente.' -ForegroundColor Green
-        }
-    } catch {
-        Write-Host ''
-        Write-Host '  No se ha podido descargar automaticamente.' -ForegroundColor Red
-        Write-Host '  Por favor, instala .NET 9 Desktop Runtime (x64) manualmente desde:' -ForegroundColor Red
-        Write-Host '  https://dotnet.microsoft.com/en-us/download/dotnet/9.0' -ForegroundColor Cyan
-        Write-Host '  (busca "Desktop Runtime" > Windows x64 > descarga e instala)' -ForegroundColor Cyan
-        Write-Host ''
-        if (-not $NoPause) { Read-Host 'Pulsa Enter para salir' }
-        exit 1
-    }
-    Remove-Item $dotnetInstaller -Force -ErrorAction SilentlyContinue
+    Install-Requisito `
+        -Nombre '.NET 9 Desktop Runtime (x64)' `
+        -Url 'https://builds.dotnet.microsoft.com/dotnet/WindowsDesktop/9.0.7/windowsdesktop-runtime-9.0.7-win-x64.exe' `
+        -ArchivoTemp (Join-Path $env:TEMP 'dotnet9-desktop-runtime.exe') `
+        -Args @('/install','/quiet','/norestart')
 } else {
     Write-Host '  .NET 9 Desktop Runtime: OK' -ForegroundColor Green
 }
+
+Write-Host ''
 
 # ---------- 1. Localizar el juego ----------
 $dir = $GameDir
