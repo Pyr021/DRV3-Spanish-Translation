@@ -25,6 +25,7 @@ definitiva. Si encuentras algo roto, a medio traducir o raro, abre un *issue* en
   letras o palabras concretas en inglés).
 - Los objetos, habilidades, regalos y nombres del mapa.
 - La fuente del juego adaptada para los caracteres españoles.
+- ¡¡IMPORTANTE!! Los géneros estan mal definidos, la IA no distingue si el texto va dirigido a una mujer o un hombre, con lo cual muchos de los textos estarán mal definidos. Esto se ira revisando y se irán buscando soluciones. 
 
 ### Lo que todavía no se ha verificado o falta
 
