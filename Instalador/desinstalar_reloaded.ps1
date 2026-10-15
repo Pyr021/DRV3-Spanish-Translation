@@ -86,6 +86,13 @@ if ($marker) {
     if ($marker.AsiCreated -and (Test-Path $targetAsi)) {
         Remove-Item $targetAsi -Force
         Write-Host '  -> Cargador de mods (.asi) eliminado.' -ForegroundColor Green
+        # Limpiar las DLLs de VC++ Runtime que copiamos junto al .asi
+        foreach ($vcDll in @('vcruntime140.dll','vcruntime140_1.dll','msvcp140.dll')) {
+            $vcPath = Join-Path $dir $vcDll
+            if (Test-Path $vcPath) {
+                Remove-Item $vcPath -Force -ErrorAction SilentlyContinue
+            }
+        }
     }
 }
 

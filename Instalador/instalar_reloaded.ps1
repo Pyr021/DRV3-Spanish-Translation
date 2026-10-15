@@ -59,52 +59,14 @@ Write-Host '=================================================================='
 Write-Host ''
 
 # ---------- 0. Comprobar requisitos del sistema ----------
-# Reloaded II necesita dos cosas para funcionar:
-#   1) Visual C++ Redistributable 2015-2022 (x64) — proporciona vcruntime140.dll, msvcp140.dll
-#   2) .NET 9 Desktop Runtime (x64) — proporciona nethost.dll y el runtime de .NET
-# Sin alguno de ellos, el juego mostrara:
+# Reloaded II necesita .NET 9 Desktop Runtime (x64) para funcionar.
+# Las DLLs del Visual C++ Runtime (vcruntime140.dll, vcruntime140_1.dll, msvcp140.dll)
+# ya van incluidas junto al bootstrapper en el paquete, asi que no hace falta instalarlas.
+# Sin .NET 9, el juego mostrara:
 #   "Unable to load Reloaded.Mod.Loader.Bootstrapper.asi. Error: 126"
 Write-Host 'Comprobando requisitos del sistema...' -ForegroundColor Cyan
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
-function Install-Requisito {
-    param([string]$Nombre, [string]$Url, [string]$ArchivoTemp, [string[]]$Args)
-    Write-Host ''
-    Write-Host "  No se ha encontrado $Nombre en este equipo." -ForegroundColor Yellow
-    Write-Host '  Se va a descargar e instalar automaticamente (necesita Internet).' -ForegroundColor Yellow
-    try {
-        Write-Host "  Descargando $Nombre..." -ForegroundColor Cyan
-        (New-Object Net.WebClient).DownloadFile($Url, $ArchivoTemp)
-        Write-Host '  Descargado. Instalando (puede pedir permiso de administrador)...' -ForegroundColor Cyan
-        $proc = Start-Process -FilePath $ArchivoTemp -ArgumentList $Args -Wait -PassThru
-        if ($proc.ExitCode -ne 0 -and $proc.ExitCode -ne 3010) {
-            Write-Host "  Codigo de salida: $($proc.ExitCode). Si algo falla, instalalo manualmente." -ForegroundColor Yellow
-        } else {
-            Write-Host "  $Nombre instalado correctamente." -ForegroundColor Green
-        }
-    } catch {
-        Write-Host ''
-        Write-Host "  No se ha podido descargar $Nombre automaticamente." -ForegroundColor Red
-        Write-Host "  Instalalo manualmente y vuelve a ejecutar este instalador." -ForegroundColor Red
-        if (-not $NoPause) { Read-Host 'Pulsa Enter para salir' }
-        exit 1
-    }
-    Remove-Item $ArchivoTemp -Force -ErrorAction SilentlyContinue
-}
-
-# --- 0a. Visual C++ Redistributable 2015-2022 (x64) ---
-$vcOk = (Test-Path "$env:SystemRoot\System32\vcruntime140.dll") -and (Test-Path "$env:SystemRoot\System32\vcruntime140_1.dll")
-if (-not $vcOk) {
-    Install-Requisito `
-        -Nombre 'Visual C++ Redistributable 2015-2022 (x64)' `
-        -Url 'https://aka.ms/vs/17/release/vc_redist.x64.exe' `
-        -ArchivoTemp (Join-Path $env:TEMP 'vc_redist_x64.exe') `
-        -Args @('/install','/quiet','/norestart')
-} else {
-    Write-Host '  Visual C++ Redistributable: OK' -ForegroundColor Green
-}
-
-# --- 0b. .NET 9 Desktop Runtime (x64) ---
 $dotnetOk = $false
 try {
     $runtimes = & dotnet --list-runtimes 2>$null
@@ -115,11 +77,38 @@ try {
 } catch {}
 
 if (-not $dotnetOk) {
-    Install-Requisito `
-        -Nombre '.NET 9 Desktop Runtime (x64)' `
-        -Url 'https://builds.dotnet.microsoft.com/dotnet/WindowsDesktop/9.0.7/windowsdesktop-runtime-9.0.7-win-x64.exe' `
-        -ArchivoTemp (Join-Path $env:TEMP 'dotnet9-desktop-runtime.exe') `
-        -Args @('/install','/quiet','/norestart')
+    Write-Host ''
+    Write-Host '  No se ha encontrado .NET 9 Desktop Runtime en este equipo.' -ForegroundColor Yellow
+    Write-Host '  Es necesario para que la traduccion funcione.' -ForegroundColor Yellow
+    Write-Host '  Se va a descargar e instalar automaticamente (necesita Internet).' -ForegroundColor Yellow
+
+    $dotnetUrl = 'https://builds.dotnet.microsoft.com/dotnet/WindowsDesktop/9.0.7/windowsdesktop-runtime-9.0.7-win-x64.exe'
+    $dotnetInstaller = Join-Path $env:TEMP 'dotnet9-desktop-runtime.exe'
+
+    try {
+        Write-Host '  Descargando .NET 9 Desktop Runtime (~58 MB)...' -ForegroundColor Cyan
+        (New-Object Net.WebClient).DownloadFile($dotnetUrl, $dotnetInstaller)
+        Write-Host '  Descargado. Instalando (puede pedir permiso de administrador)...' -ForegroundColor Cyan
+        # Usar -Verb RunAs para solicitar elevacion si no somos admin
+        $proc = Start-Process -FilePath $dotnetInstaller -ArgumentList '/install','/quiet','/norestart' -Verb RunAs -Wait -PassThru
+        if ($proc.ExitCode -ne 0 -and $proc.ExitCode -ne 3010) {
+            Write-Host "  Codigo de salida: $($proc.ExitCode). Prueba a instalar .NET 9 manualmente desde:" -ForegroundColor Yellow
+            Write-Host '  https://dotnet.microsoft.com/en-us/download/dotnet/9.0' -ForegroundColor Yellow
+        } else {
+            Write-Host '  .NET 9 Desktop Runtime instalado correctamente.' -ForegroundColor Green
+        }
+    } catch {
+        Write-Host ''
+        Write-Host '  No se ha podido instalar automaticamente (puede haberse cancelado' -ForegroundColor Red
+        Write-Host '  el permiso de administrador o no haber conexion a Internet).' -ForegroundColor Red
+        Write-Host '  Por favor, instala .NET 9 Desktop Runtime (x64) manualmente desde:' -ForegroundColor Red
+        Write-Host '  https://dotnet.microsoft.com/en-us/download/dotnet/9.0' -ForegroundColor Cyan
+        Write-Host '  (busca "Desktop Runtime" > Windows x64 > descarga e instala)' -ForegroundColor Cyan
+        Write-Host ''
+        if (-not $NoPause) { Read-Host 'Pulsa Enter para salir' }
+        exit 1
+    }
+    Remove-Item $dotnetInstaller -Force -ErrorAction SilentlyContinue
 } else {
     Write-Host '  .NET 9 Desktop Runtime: OK' -ForegroundColor Green
 }
@@ -321,6 +310,15 @@ if (Test-Path $targetDinput) {
 }
 Copy-Item $AsiLoaderSrc $targetDinput -Force
 Copy-Item $bootstrap64 $targetAsi -Force
+# Copiar las DLLs del VC++ Runtime junto al .asi (el bootstrapper las busca
+# primero en su propio directorio, asi no hace falta instalar VC++ en el sistema)
+$bootstrapperDir = Join-Path $ReloadedDestDir 'Loader\X64\Bootstrapper'
+foreach ($vcDll in @('vcruntime140.dll','vcruntime140_1.dll','msvcp140.dll')) {
+    $vcSrc = Join-Path $bootstrapperDir $vcDll
+    if (Test-Path $vcSrc) {
+        Copy-Item $vcSrc (Join-Path $dir $vcDll) -Force
+    }
+}
 $marker.AsiCreated = $true
 $marker.TouchedGlobalConfig = [bool]$script:TouchedGlobalConfig
 Write-Host '  Hecho.' -ForegroundColor Green
