@@ -106,6 +106,7 @@ por documentar públicamente su proceso de modding, que sirvió de referencia en
 
 ## Historial de versiones
 
-- **v0.1-beta** (actual) — Primera versión pública de pruebas. Diálogo de los 12 capítulos, menús,
-  interfaz del capítulo 6 y minijuegos de los juicios (con su lógica reprogramada) traducidos.
-  Pendiente de verificar los modos alternativos a la historia y de completar algunas imágenes/Flash.
+- **v0.1-beta** (actual) — Primera versión pública de pruebas. Diálogo de los 6 capítulos, prólogo
+  y epílogo, menús, interfaz del capítulo 6 y minijuegos de los juicios (con su lógica reprogramada)
+  traducidos. Géneros gramaticales aún sin revisar del todo (traducción con IA). Pendiente de
+  verificar los modos alternativos a la historia y de completar algunas imágenes/Flash.

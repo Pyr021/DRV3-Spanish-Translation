@@ -1,4 +1,4 @@
-========================================================================
+﻿========================================================================
  Danganronpa V3: Killing Harmony — Traducción al español
 ========================================================================
 
@@ -10,9 +10,17 @@ Esta es la primera versión pública. El texto principal del juego ya
 está traducido y es jugable, pero todavía se está probando y puliendo.
 Iremos sacando nuevas versiones hasta llegar a una definitiva.
 
+¡¡IMPORTANTE!! GÉNEROS GRAMATICALES MAL DEFINIDOS
+----------------------------------------------------
+La traducción se hizo con ayuda de IA, y esta no siempre distingue
+si un texto va dirigido a un personaje masculino o femenino (o habla
+de él o de ella). Por eso, MUCHOS TEXTOS PUEDEN TENER EL GÉNERO
+INCORRECTO (adjetivos, artículos, etc. que no concuerdan). Es un
+problema conocido que se irá revisando y corrigiendo poco a poco.
+
 Qué incluye la traducción
 -------------------------
-- Todo el diálogo de los 12 capítulos (con tildes, Ñ y signos ¿¡).
+- Todo el diálogo de los 6 capítulos, prólogo y epílogo (con tildes, Ñ y signos ¿¡).
 - Los menús del juego: menú principal, selección de capítulo,
   "Pulsa cualquier botón", opciones, etc.
 - La interfaz del capítulo 6 (los "Recuerdos").
