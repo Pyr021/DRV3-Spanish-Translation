@@ -67,22 +67,30 @@ Write-Host ''
 Write-Host 'Comprobando requisitos del sistema...' -ForegroundColor Cyan
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
+# El Loader de Reloaded II requiere .NET 9 Desktop Runtime >= 9.0.8 (segun runtimeconfig.json).
+# Comprobamos si hay una version 9.0.8+ instalada.
 $dotnetOk = $false
 try {
     $runtimes = & dotnet --list-runtimes 2>$null
     if ($runtimes) {
-        $desktopRuntimes = $runtimes | Where-Object { $_ -match 'Microsoft\.WindowsDesktop\.App 9\.' }
-        if ($desktopRuntimes) { $dotnetOk = $true }
+        foreach ($rt in $runtimes) {
+            if ($rt -match 'Microsoft\.WindowsDesktop\.App (\d+)\.(\d+)\.(\d+)') {
+                $major = [int]$Matches[1]; $minor = [int]$Matches[2]; $patch = [int]$Matches[3]
+                if ($major -eq 9 -and $minor -eq 0 -and $patch -ge 8) { $dotnetOk = $true; break }
+                if ($major -eq 9 -and $minor -gt 0) { $dotnetOk = $true; break }
+                if ($major -gt 9) { $dotnetOk = $true; break }
+            }
+        }
     }
 } catch {}
 
 if (-not $dotnetOk) {
     Write-Host ''
-    Write-Host '  No se ha encontrado .NET 9 Desktop Runtime en este equipo.' -ForegroundColor Yellow
+    Write-Host '  No se ha encontrado .NET 9 Desktop Runtime (>= 9.0.8) en este equipo.' -ForegroundColor Yellow
     Write-Host '  Es necesario para que la traduccion funcione.' -ForegroundColor Yellow
     Write-Host '  Se va a descargar e instalar automaticamente (necesita Internet).' -ForegroundColor Yellow
 
-    $dotnetUrl = 'https://builds.dotnet.microsoft.com/dotnet/WindowsDesktop/9.0.7/windowsdesktop-runtime-9.0.7-win-x64.exe'
+    $dotnetUrl = 'https://builds.dotnet.microsoft.com/dotnet/WindowsDesktop/9.0.20/windowsdesktop-runtime-9.0.20-win-x64.exe'
     $dotnetInstaller = Join-Path $env:TEMP 'dotnet9-desktop-runtime.exe'
 
     try {
