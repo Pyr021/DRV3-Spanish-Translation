@@ -8,13 +8,31 @@ junto con un instalador que la aplica automáticamente sin tocar los archivos or
 > empresas. Es un trabajo de fans sin ánimo de lucro; necesitas una copia legítima del juego
 > en Steam para usarlo.
 
+## 🧪 Estado del proyecto: v0.1-beta (fase de pruebas)
+
+Esta es la **primera versión pública de prueba**. El texto principal del juego está traducido
+y es jugable, pero todavía no se ha verificado al 100% en todas las partes del juego ni en todos
+los modos. Según se vaya probando y puliendo, iré sacando nuevas versiones hasta llegar a una
+definitiva. Si encuentras algo roto, a medio traducir o raro, abre un *issue* en este repositorio.
+
 ## Contenido de la traducción
 
 - Todo el diálogo de los 12 capítulos (con tildes, Ñ y signos ¿¡).
 - Los menús del juego: menú principal, selección de capítulo, "Pulsa cualquier botón", opciones, etc.
 - La interfaz del capítulo 6 (los "Recuerdos").
+- Los minijuegos de los juicios: no solo se tradujeron sus textos, también se **reprogramó su
+  lógica interna** para que funcionen correctamente en español (por ejemplo, los que dependen de
+  letras o palabras concretas en inglés).
 - Los objetos, habilidades, regalos y nombres del mapa.
 - La fuente del juego adaptada para los caracteres españoles.
+
+### Lo que todavía no se ha verificado o falta
+
+- **Modos alternativos a la historia principal** (minijuegos del campus, casino, etc. fuera de
+  los capítulos): aún no se sabe con certeza si están traducidos o en qué medida.
+- No está garantizado que el mod funcione al 100% en absolutamente todas las partes del juego;
+  esta es precisamente la fase de pruebas para detectar esos casos.
+- Quedan algunas **imágenes o archivos Flash sin traducir** todavía por identificar e implementar.
 
 ## Instalación
 
@@ -85,7 +103,8 @@ Este instalador incluye binarios de terceros, redistribuidos bajo sus licencias 
 Gracias también al equipo [IndacoSub / DAIX](https://indacosub.github.io/) (traducción italiana)
 por documentar públicamente su proceso de modding, que sirvió de referencia en la investigación.
 
-## Estado del proyecto
+## Historial de versiones
 
-La traducción está completa y es jugable de principio a fin. Si encuentras un error de texto,
-abre un *issue* en este repositorio.
+- **v0.1-beta** (actual) — Primera versión pública de pruebas. Diálogo de los 12 capítulos, menús,
+  interfaz del capítulo 6 y minijuegos de los juicios (con su lógica reprogramada) traducidos.
+  Pendiente de verificar los modos alternativos a la historia y de completar algunas imágenes/Flash.

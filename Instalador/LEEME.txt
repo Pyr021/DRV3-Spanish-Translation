@@ -2,8 +2,13 @@
  Danganronpa V3: Killing Harmony — Traducción al español
 ========================================================================
 
-¡Hola! Este es un instalador de la traducción completa del juego al
-español de España.
+¡Hola! Este es un instalador de la traducción al español del juego.
+
+VERSIÓN v0.1-beta — FASE DE PRUEBAS
+------------------------------------
+Esta es la primera versión pública. El texto principal del juego ya
+está traducido y es jugable, pero todavía se está probando y puliendo.
+Iremos sacando nuevas versiones hasta llegar a una definitiva.
 
 Qué incluye la traducción
 -------------------------
@@ -11,8 +16,23 @@ Qué incluye la traducción
 - Los menús del juego: menú principal, selección de capítulo,
   "Pulsa cualquier botón", opciones, etc.
 - La interfaz del capítulo 6 (los "Recuerdos").
+- Los minijuegos de los juicios: traducidos y con su funcionamiento
+  interno adaptado para que vayan bien en español.
 - Los objetos, habilidades, regalos y nombres del mapa.
 - La fuente del juego adaptada para los caracteres españoles.
+
+Qué falta por confirmar o completar
+------------------------------------
+- Aún no sabemos con seguridad si los modos alternativos a la
+  historia principal (minijuegos del campus, casino, etc.) están
+  traducidos del todo.
+- No está garantizado que la traducción funcione perfectamente en
+  el 100% del juego; para eso es esta fase de pruebas.
+- Quedan algunas imágenes o pantallas (archivos Flash) todavía sin
+  traducir, que se irán añadiendo en próximas versiones.
+
+Si ves algo raro, a medio traducir o roto, avísanos para poder
+corregirlo en la siguiente versión.
 
 Cómo funciona este instalador
 ------------------------------
@@ -23,8 +43,8 @@ con la traducción. Al abrir el juego desde Steam, la traducción se
 carga automáticamente, sin que tengas que abrir ningún programa
 adicional ni hacer nada manualmente.
 
-Este es el mismo método que se ha usado para jugar la traducción
-completa sin problemas; este instalador simplemente lo automatiza.
+Este es el mismo método con el que se ha estado jugando y probando
+la traducción; este instalador simplemente lo automatiza.
 
 Requisitos
 ----------
