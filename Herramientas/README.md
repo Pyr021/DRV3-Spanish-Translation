@@ -37,10 +37,7 @@ ejecutarlos, tendrás que ajustar esas rutas a tu propia máquina. El
   `.spc`/`.stx`/`.srd`, verificación, depuración de formatos).
 - [`pipeline_v4/`](pipeline_v4/): pipeline de traducción más reciente
   (ortografía automática, verificación, prompts, tests).
-- [`glosario.txt`](glosario.txt) / [`personajes.txt`](personajes.txt):
-  glosario de términos y ficha de personajes usados para mantener
+- [`glosario.txt`](glosario.txt): glosario de términos usado para mantener
   consistencia en la traducción.
 - [`README_PIPELINE.md`](README_PIPELINE.md): documentación del pipeline
   completo de traducción (extraer → traducir → fusionar → reempaquetar).
-- [`textos_ingles/`](textos_ingles/) / [`textos_traducidos/`](textos_traducidos/):
-  ejemplos mínimos de entrada/salida.
