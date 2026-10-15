@@ -1,0 +1,20 @@
+# Artefactos de compilacion Python
+__pycache__/
+*.pyc
+
+# Logs y temporales de Reloaded-II
+Instalador/ReloadedPortable/User/Logs/
+Instalador/ReloadedPortable/User/CrashDumps/
+
+# Backups y marcadores de instalaciones de prueba (no deben publicarse)
+*.bak_es
+install_marker.json
+
+# Carpetas temporales de trabajo
+temp/
+work_tmp/
+
+# Archivos del sistema
+Thumbs.db
+desktop.ini
+.DS_Store

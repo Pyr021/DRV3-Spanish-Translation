@@ -1,0 +1,72 @@
+========================================================================
+ Danganronpa V3: Killing Harmony — Traducción al español
+========================================================================
+
+¡Hola! Este es un instalador de la traducción completa del juego al
+español de España.
+
+Qué incluye la traducción
+-------------------------
+- Todo el diálogo de los 12 capítulos (con tildes, Ñ y signos ¿¡).
+- Los menús del juego: menú principal, selección de capítulo,
+  "Pulsa cualquier botón", opciones, etc.
+- La interfaz del capítulo 6 (los "Recuerdos").
+- Los objetos, habilidades, regalos y nombres del mapa.
+- La fuente del juego adaptada para los caracteres españoles.
+
+Cómo funciona este instalador
+------------------------------
+Este instalador NO modifica los archivos originales del juego
+(los .cpk). En su lugar, instala una copia "portátil" y automática
+de Reloaded II (un gestor de mods muy usado y seguro) ya configurada
+con la traducción. Al abrir el juego desde Steam, la traducción se
+carga automáticamente, sin que tengas que abrir ningún programa
+adicional ni hacer nada manualmente.
+
+Este es el mismo método que se ha usado para jugar la traducción
+completa sin problemas; este instalador simplemente lo automatiza.
+
+Requisitos
+----------
+- Unos 40 MB de espacio libre en el disco.
+- Menos de 1 minuto de instalación.
+
+Cómo instalar
+-------------
+1. Cierra el juego y Steam si están abiertos (recomendado).
+2. Haz doble clic en "Instalar.bat".
+3. Si el instalador no encuentra el juego automáticamente, te pedirá
+   la carpeta de instalación del juego (la que contiene
+   "Dangan3Win.exe"), normalmente en:
+   C:\Program Files (x86)\Steam\steamapps\common\Danganronpa V3 Killing Harmony
+4. Espera unos segundos mientras se instala.
+5. Abre el juego directamente desde Steam. La traducción se aplicará
+   sola.
+
+Cómo desinstalar (volver al inglés)
+-----------------------------------
+Haz doble clic en "Desinstalar.bat". Esto elimina la copia portátil
+de Reloaded II y restaura cualquier archivo que hubiera antes en la
+carpeta del juego.
+
+Si el instalador no puede escribir en la carpeta del juego
+------------------------------------------------------------
+Si el juego está instalado en "Archivos de programa" y tu Windows
+tiene permisos muy restrictivos, puede que necesites hacer clic
+derecho en "Instalar.bat" y elegir "Ejecutar como administrador".
+En la mayoría de los casos esto no hace falta.
+
+Seguridad
+---------
+- No se toca ningún archivo .cpk del juego: la traducción se aplica
+  "al vuelo" cuando el juego arranca, no se sustituye nada en disco
+  dentro de esos archivos.
+- Si ya tenías un "dinput8.dll" distinto en la carpeta del juego, se
+  guarda una copia de seguridad como "dinput8.dll.bak_es" antes de
+  sustituirlo, y se restaura al desinstalar.
+- Si algo falla, ejecuta "Desinstalar.bat". El juego también se puede
+  restaurar por completo desde Steam con "Verificar integridad de los
+  archivos del juego".
+
+Nota: esta traducción es un trabajo comunitario y no oficial.
+========================================================================

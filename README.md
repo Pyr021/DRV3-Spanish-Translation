@@ -1,0 +1,83 @@
+# Danganronpa V3: Killing Harmony — Traducción al español
+
+Traducción de fans, no oficial, al español de **Danganronpa V3: Killing Harmony** (PC/Steam),
+junto con un instalador que la aplica automáticamente sin tocar los archivos originales del juego.
+
+> **Aviso legal**: "DANGANRONPA" es una marca registrada de Spike Chunsoft Co., Ltd., Too Kyo
+> Games, LLC y/o NIS America Inc. Este proyecto no está afiliado ni respaldado por dichas
+> empresas. Es un trabajo de fans sin ánimo de lucro; necesitas una copia legítima del juego
+> en Steam para usarlo.
+
+## Contenido de la traducción
+
+- Todo el diálogo de los 12 capítulos (con tildes, Ñ y signos ¿¡).
+- Los menús del juego: menú principal, selección de capítulo, "Pulsa cualquier botón", opciones, etc.
+- La interfaz del capítulo 6 (los "Recuerdos").
+- Los objetos, habilidades, regalos y nombres del mapa.
+- La fuente del juego adaptada para los caracteres españoles.
+
+## Instalación
+
+1. Ve a la carpeta [`Instalador/`](Instalador/).
+2. Haz doble clic en `Instalar.bat`.
+3. Si no encuentra el juego automáticamente, indica la carpeta donde está instalado
+   (la que contiene `Dangan3Win.exe`).
+4. Abre el juego directamente desde Steam: la traducción se carga sola.
+
+Para desinstalar (volver al inglés), haz doble clic en `Desinstalar.bat` dentro de la misma carpeta.
+
+Instrucciones detalladas en [`Instalador/LEEME.txt`](Instalador/LEEME.txt).
+
+## Cómo funciona el instalador
+
+El instalador **no modifica ningún archivo `.cpk` del juego**. En su lugar, instala una copia
+portátil y automática de [Reloaded-II](https://github.com/Reloaded-Project/Reloaded-II) con el
+mod [CriFs.V2.Hook](https://github.com/Sewer56/CriFs.V2.Hook.ReloadedII) ya configurado con la
+traducción integrada. Al arrancar el juego desde Steam, Reloaded se inyecta automáticamente
+(vía [Ultimate ASI Loader](https://github.com/ThirteenAG/Ultimate-ASI-Loader)) y los archivos
+traducidos sustituyen a los originales **en memoria**, sin tocar nada en disco dentro de los `.cpk`.
+
+Es completamente reversible: el desinstalador restaura cualquier archivo que hubiera antes
+(por ejemplo, si ya tenías otro `dinput8.dll` instalado por otro motivo) usando un marcador
+explícito de qué se instaló, en vez de adivinar.
+
+### ¿Por qué no se sustituyen los archivos directamente (sin Reloaded)?
+
+Se investigó a fondo la posibilidad de un instalador que sustituyera archivos del juego
+directamente (reempaquetando los `.cpk`, o usando archivos sueltos en `data\win\` como hace el
+método documentado por el equipo de traducción italiano,
+[V3UPSManager](https://github.com/IndacoSub/V3UPSManager)). Ninguna de las variantes probadas
+funcionó en nuestras pruebas:
+
+| Método probado | Resultado |
+|---|---|
+| Reempaquetar el `.cpk` con CriPakTools | Crash determinista al iniciar (`0xc0000005`, offset `0x57858e`) |
+| Carpetas sueltas en `data\win\` (sin los `.cpk`) | El juego llega a los avisos legales en inglés y se queda colgado cargando indefinidamente |
+| Carpeta con el mismo nombre que el `.cpk` (p. ej. `data\win\partition_data_win_us.cpk\...`) | Crash inmediato, en el **mismo offset exacto** que el `.cpk` reempaquetado |
+
+Analizando el código fuente de CriFs.V2.Hook se confirmó que el mecanismo de "archivos sueltos
+con prioridad sobre el CPK" es una **inyección activa** sobre la API nativa de CRI File System
+(`criFsBinder_BindDirectory`), no un comportamiento nativo del motor del juego. Por eso el
+instalador usa ese mismo mecanismo (ya probado y jugado sin problemas durante días) en vez de
+intentar reinventarlo sin un hook.
+
+## Créditos y licencias de terceros
+
+Este instalador incluye binarios de terceros, redistribuidos bajo sus licencias originales:
+
+- **[Reloaded-II](https://github.com/Reloaded-Project/Reloaded-II)** (GPL v3) — gestor de mods.
+  Código fuente: <https://github.com/Reloaded-Project/Reloaded-II>.
+  Texto de la licencia y de sus dependencias en
+  [`Instalador/ReloadedPortable/THIRD_PARTY_LICENSES_Reloaded-II.txt`](Instalador/ReloadedPortable/THIRD_PARTY_LICENSES_Reloaded-II.txt).
+- **[CriFs.V2.Hook](https://github.com/Sewer56/CriFs.V2.Hook.ReloadedII)** por Sewer56 — mod que
+  permite sustituir archivos CPK sin reempaquetarlos.
+- **[Ultimate ASI Loader](https://github.com/ThirteenAG/Ultimate-ASI-Loader)** por ThirteenAG
+  (MIT) — cargador de mods vía `dinput8.dll`.
+
+Gracias también al equipo [IndacoSub / DAIX](https://indacosub.github.io/) (traducción italiana)
+por documentar públicamente su proceso de modding, que sirvió de referencia en la investigación.
+
+## Estado del proyecto
+
+La traducción está completa y es jugable de principio a fin. Si encuentras un error de texto,
+abre un *issue* en este repositorio.
