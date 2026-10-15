@@ -10,12 +10,6 @@ truncamiento y del reajuste de líneas.
   línea reajustados**. Fuente original (212.992 bytes) → sin crash en juicios.
   Verificado: 56/56 subarchivos, 50/50 IDs intactos, 50/50 textos en su slot.
 
-### Pendiente
-- **Capítulos de historia** (12 archivos de `wrd_script/007/`): traducidos pero
-  **sin tildes** (pasaron por `limpiar_acentos.mjs`). Re-traducción en curso.
-- **QA de calidad** con Claude (género gramatical, naturalidad).
-- **Minijuegos** (BrainDrive, Anagram, Imagination): en inglés por crashes.
-
 ## Scripts actuales
 
 | Script | Para qué |
@@ -30,41 +24,6 @@ truncamiento y del reajuste de líneas.
 | `stx_repack_v2.mjs` | `.txt` → `.stx` **preservando los IDs internos**. |
 | `spc_cmp.mjs` | Compresor LZ del `.spc`. |
 | `glosario.txt` / `personajes.txt` | Terminología y género de personajes. |
-
-### Prohibido
-- `limpiar_acentos.mjs` y `limpiar_mod.mjs`: **eliminan las tildes y la Ñ**.
-- Font patching: **la fuente original ya tiene todos los caracteres españoles**.
-
-## Trampas conocidas (todas verificadas empíricamente)
-
-1. **Truncamiento por límite de tokens.** El traductor antiguo mandaba el archivo
-   entero en una llamada. Medido: ~70 tokens de salida por entrada, ~116 entradas
-   caben en 8.192 tokens. Con 581 entradas, el modelo se cortaba sobre la 108.
-   Solución: `traductor_stx_v2.mjs` trocea a 50 entradas y verifica cada trozo.
-
-2. **Los `.stx` deduplican cadenas.** Varias entradas comparten el mismo offset
-   (2.727 casos en `game_resident`). Al reconstruir se escribe una copia por
-   entrada: el archivo crece pero sigue siendo correcto. No es corrupción.
-
-3. **El orden de los slots NO es alfabético.** En `game_resident_US.spc` los
-   `Anagram`/`BrainDrive`/`Imagination` van al final. **Emparejar por posición
-   mete cada texto en el archivo equivocado.** Siempre por contenido.
-
-4. **La tabla de `game_resident_US.spc` no lleva nombres.** `spc_repack_generic_v3.mjs`
-   empareja por nombre y por eso no sirve para este archivo: usa
-   `empaquetar_resident.mjs`.
-
-5. **El juego corta línea con `\n`.** No hace falta `\r\n`: en chap0 el original
-   usa `\n` suelto 1.038 veces y `\r\n` solo 3. Perder el `\r` es cosmético.
-
-6. **El español ocupa un 15-30% más que el inglés.** Medido en 7.075 entradas:
-   3.792 desbordaban su caja. Tras el reajuste: 358 (el 90,6% arreglado). Las 358
-   restantes son palabras sueltas ("Presentador" en un hueco de 10) que no caben
-   de ninguna forma.
-
-7. **Los `—` no hay que quitarlos.** En `F-HelpOperateDesc` los guiones largos ya
-   venían del inglés original como separadores de sección. El verificador solo
-   marca los que **introduce el modelo**.
 
 ## Flujo para re-traducir un archivo
 
@@ -92,15 +51,6 @@ rem 7. Copiar al mod y probar en el juego
 ```
 
 Para `game_resident_US.spc` el paso 6 es `empaquetar_resident.mjs`.
-
-## Ubicaciones
-
-- Scripts: `C:\Users\david\traductor_v3\`
-- CPK original: `C:\Users\david\Desktop\hgy\CriPakTools_x64\partition_data_win_us.cpk_unpacked\`
-- CPK residente: `...\partition_resident_win.cpk_unpacked\game_resident\`
-- Mod: `C:\Users\david\Desktop\Reloaded2\Release\Mods\CriFs.V2.Hook\CRIFsV2Hook\CPK\`
-- Backups del mod: `C:\Users\david\Desktop\BACKUP_DanganronpaV3_Esp\`
-- Backups de scripts: `C:\Users\david\traductor_v3\_backup_scripts_*\`
 
 ## Recordatorios
 
