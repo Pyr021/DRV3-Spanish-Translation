@@ -17,7 +17,7 @@ definitiva. Si encuentras algo roto, a medio traducir o raro, abre un *issue* en
 
 ## Contenido de la traducción
 
-- Todo el diálogo de los 12 capítulos (con tildes, Ñ y signos ¿¡).
+- Todo el diálogo de los 6 capítulos, prólogo y epílogo (con tildes, Ñ y signos ¿¡).
 - Los menús del juego: menú principal, selección de capítulo, "Pulsa cualquier botón", opciones, etc.
 - La interfaz del capítulo 6 (los "Recuerdos").
 - Los minijuegos de los juicios: no solo se tradujeron sus textos, también se **reprogramó su
