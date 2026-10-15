@@ -1,0 +1,12 @@
+CarddessText.rsct.json: 4 entradas con acentos prohibidos
+CommonText.rsct.json: 2 entradas con texto vacio; 63 entradas con acentos prohibidos; AVISO: 106 entradas parecen no traducidas
+RPGText.rsct.json: 293 entradas con acentos prohibidos; AVISO: 29 entradas parecen no traducidas
+RscText_friend.rsct.json: 2228 entradas con acentos prohibidos; AVISO: 74 entradas parecen no traducidas
+RscText_happen.rsct.json: 38 entradas con acentos prohibidos
+RscText_individual.rsct.json: 350 entradas con acentos prohibidos; AVISO: 13 entradas parecen no traducidas
+RscText_individual_a3.rsct.json: 222 entradas con acentos prohibidos
+RscText_rpg.rsct.json: 22 entradas con acentos prohibidos
+RscText_season.rsct.json: 5619 entradas con acentos prohibidos; AVISO: 76 entradas parecen no traducidas
+RscText_story.rsct.json: 382 entradas con acentos prohibidos
+RscText_test.rsct.json: 49 entradas con acentos prohibidos
+SuccessText.rsct.json: 49 entradas con acentos prohibidos

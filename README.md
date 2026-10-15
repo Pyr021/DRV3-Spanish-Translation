@@ -61,6 +61,14 @@ con prioridad sobre el CPK" es una **inyección activa** sobre la API nativa de 
 instalador usa ese mismo mecanismo (ya probado y jugado sin problemas durante días) en vez de
 intentar reinventarlo sin un hook.
 
+## Herramientas de traducción
+
+En [`Herramientas/`](Herramientas/) se publican, como referencia y documentación técnica, los
+scripts usados para producir la traducción: extracción/reempaquetado de los formatos propios del
+juego (`.spc`, `.stx`, `.srd`), el pipeline de traducción asistida con IA, verificación de
+integridad y el glosario de términos. No son una herramienta de uso general lista para instalar;
+más detalles en [`Herramientas/README.md`](Herramientas/README.md).
+
 ## Créditos y licencias de terceros
 
 Este instalador incluye binarios de terceros, redistribuidos bajo sus licencias originales:

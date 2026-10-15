@@ -1,0 +1,61 @@
+Danganronpa V3: Killing Harmony Glossary
+This reference dictionary outlines the standard fan and official localization terms for Danganronpa V3: Killing Harmony. It is designed for use in translation, consistency checking, and content creation related to the Spanish-speaking community.
+Core Concepts and Settings
+Ultimate: Definitivo/a (Refers to the students' specialized talents).
+Ultimate Academy for Gifted Juveniles: Academia de Definitivos para Jóvenes Talentosos.
+Killing Game: Juego de Matanza.
+Mastermind: Mente Maestra.
+Hope: Esperanza.
+Despair: Desesperación.
+Monokuma File: Archivo Monokuma.
+Body Discovery Announcement: Anuncio de hallazgo del cadáver.
+Investigation: Investigación.
+Monopad: Monopad.
+Gopher Project: Proyecto Gopher.
+Exisal: Exisal.
+Class Trial Mechanics
+Class Trial: Juicio Escolar.
+Truth Bullet: Bala de la Verdad.
+Lie Bullet / Perjury: Bala de Mentira / Perjurio.
+Non-stop Debate: Debate Continuo / Debate Ininterrumpido.
+Mass Panic Debate: Debate de Pánico Masivo.
+Scrum Debate: Debate Scrum.
+Rebuttal Showdown: Enfrentamiento de Refutación.
+Argument Armament: Armamento de Argumentos.
+Logic Dive: Inmersión Lógica.
+Psyche Taxi: Taxi Mental.
+Mind Mine: Mina Mental.
+Hangman's Gambit: Gambito del Ahorcado.
+Closing Argument: Argumento de Cierre.
+Spotlight Selection: Selección de Punto de Mira.
+Consent: Consentimiento (Used when agreeing with a statement during a debate).
+Counter: Contradecir (Used when breaking a statement with a Truth Bullet).
+V Point: Punto V (Critical hit on a statement).
+Trial Outcomes
+Culprit: Culpable.
+Blackened: Ennegrecido.
+Execution: Ejecución.
+Punishment Time: Hora del Castigo.
+The Spotless: Los Inocentes (Students who are not the blackened).
+Character Specifics
+Ultimate Pianist: Pianista Definitiva.
+Ultimate Detective: Detective Definitivo.
+Ultimate Supreme Leader: Líder Supremo Definitivo.
+Ultimate Astronaut: Astronauta Definitivo.
+Ultimate Assassin: Asesina Definitiva.
+Ultimate Robot: Robot Definitivo.
+Ultimate Inventor: Inventora Definitiva.
+Ultimate Anthropologist: Antropólogo Definitivo.
+Ultimate Aikido Master: Maestra de Aikido Definitiva.
+Ultimate Magician: Maga Definitiva.
+Ultimate Maid: Sirvienta Definitiva.
+Ultimate Entomologist: Entomólogo Definitivo.
+Ultimate Cosplayer: Cosplayer Definitiva.
+Ultimate Tennis Pro: Profesional del Tenis Definitivo.
+Ultimate Artist: Artista Definitiva.
+Ultimate Child Caregiver: Cuidadora Infantil Definitiva.
+
+
+EJEMPLOS DE ESTILO Y CÓDIGO:
+Inglés: <color=yellow>Upupupu...</color> This is the [0x05] Killing Game!
+Español: <color=yellow>Upupupu...</color> ¡Este es el [0x05] Juego de Matanza!

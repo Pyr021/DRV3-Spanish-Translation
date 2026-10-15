@@ -1,0 +1,88 @@
+Te voy a ser 100% sincero:
+
+La realidad técnica
+Traducir el Brain Drive al español es factible, pero MUY jodido. Te explico por qué:
+
+El problema real
+El Brain Drive funciona así:
+
+Aparece la pregunta (traducida de BrainDrive-Question.stx)
+
+Aparecen fragmentos de respuesta en piezas que el jugador debe ordenar
+
+Cada pieza es un string de BrainDrive-Answer.stx
+
+Cuando traducimos las respuestas al español, los strings son más largos (ej: "PRETENDED" → "FINGIO" o "SIMULO FINGIR"). El juego tiene un ancho fijo para cada pieza, y si el texto no cabe:
+
+Se corta
+
+O directamente se vacía (lo que viste)
+
+O crashea (lo que viste antes)
+
+Lo que habría que hacer para arreglarlo
+Opción A - Traducciones cortas extremas (factible, 1-2 horas):
+Buscar palabras en español que quepan en el mismo espacio que las inglesas. Ejemplo:
+
+"PRETENDED" → "FINGIO" (7 chars vs 9)
+
+"DISCOVERED" → "HALLO" (6 vs 10)
+
+"THE MANSION" → "CASA" (4 vs 11)
+
+El resultado sería una traducción rara pero funcional. Muy poco elegante.
+
+Opción B - Modificar el layout (muy jodido, semanas):
+Habría que:
+
+Encontrar el archivo que define el layout del Brain Drive (probablemente un .sfl o un binario)
+
+Reverse-engineer cómo calcula el ancho de cada pieza
+
+Modificar los valores para que acepten strings más largos
+
+Reempaquetar y probar sin romper nada
+
+Esto es ingeniería inversa de verdad. No es como editar PNGs o traducir .stx. Habría que tocar código del juego, y el .sfl es Flash compilado (el mismo problema que tuvimos con el Monopad).
+
+Opción C - Dejar el Brain Drive en inglés (lo que ya tienes):
+El minijuego se ve en inglés, pero:
+
+No crashea ✅
+
+Es funcional ✅
+
+Solo afecta al minijuego ✅
+
+El resto del juego está 100% en español ✅
+
+Mi recomendación honesta
+Quédate con la Opción C. El Brain Drive es un minijuego secundario. En Danganronpa V3 hay 4-5 minijuegos y varios juicios. Este es uno de los menos importantes. Traducir el resto del juego (historia, menús, Monopad, popups, avisos, galerías, casino, etc.) ya es un logro GIGANTESCO.
+
+¿Por qué es tan jodido?
+Porque el Brain Drive no usa .stx normales como los diálogos. Usa un sistema de piezas seleccionables con layout fijo. Es como intentar meter una frase en un hueco de 4 cajas cuando la frase necesita 6 cajas. No cabe, y no hay forma de meterla sin rediseñar el juego.
+
+Si aún así quieres intentarlo
+La Opción A es la única realista. Podríamos:
+
+Extraer los strings originales de BrainDrive-Answer.stx
+
+Buscar traducciones que quepan en el mismo número de caracteres
+
+Reempaquetar y probar
+
+Pero te aviso: el resultado será feo y forzado. Cosas como "THE MANSION" → "LA CASA" o "PRETENDED" → "FINGIA" son traducciones pobres. No creo que merezca la pena.
+
+Mi veredicto
+Estás a un 98% de traducción completa. Lo que falta:
+
+Brain Drive: imposible sin reverse engineering pesado (opción B) o traducción fea (opción A)
+
+Monopad: algunos textos en inglés (los que vimos en las capturas)
+
+Interfaz del juicio: algunos botones en inglés
+
+El 98% es un logro enorme. Disfruta del juego en español, y si algún día quieres el 100%, tendríamos que meternos en reverse engineering serio (semanas de trabajo).
+
+¿Qué prefieres? ¿Dejamos el Brain Drive en inglés y seguimos con otras partes (juicios, Monopad), o intentamos la Opción A (traducciones cortas feas)?
+

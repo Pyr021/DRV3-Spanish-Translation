@@ -1,0 +1,151 @@
+Aquí tienes un resumen completo de emergencia para que puedas continuar el proyecto en otro chat si pierdes este. Copia y guarda este texto en un archivo de texto (por ejemplo, backup_proyecto.txt) en un lugar seguro.
+
+PROYECTO: Traducción de Danganronpa V3 al Español
+1. OBJETIVO
+Traducir el juego Danganronpa V3: Killing Harmony (versión PC/Steam, inglés US) al español de España, usando la API de DeepSeek para traducir y el mod CRI FileSystem V2 Hook + Reloaded II para inyectar los archivos traducidos sin modificar el CPK original.
+
+2. ESTADO ACTUAL (a fecha de este backup)
+Prólogo (carpeta 007): traducción en curso (pipeline ejecutándose). Se está re-traduciendo con el nuevo glosario y personajes.txt para corregir género gramatical. Al terminar, hay que ejecutar limpiar_mod.mjs para quitar tildes/ñ.
+
+Capítulo 1 (carpeta 007): ya traducido anteriormente (pero se re-traducirá junto con el Prólogo por la Opción A).
+
+Capítulos 2-6 y Epílogo: pendientes de traducir. Se encuentran en otras subcarpetas de wrd_script (probablemente 003, 004, 005, 006). Hay que identificar cuál corresponde a cada capítulo.
+
+Interfaz, menús, juicios, minijuegos: pendientes. Están en archivos Flash (flash/), no en wrd_script. Se abordarán más adelante con herramientas como JPEXS Flash Decompiler.
+
+3. HERRAMIENTAS Y SCRIPTS CREADOS
+Todos los scripts están en C:\Users\david\traductor_v3\. Son archivos .mjs (Node.js).
+
+spc_extract.mjs: Extrae los subarchivos .stx de un archivo .spc.
+
+Uso: node spc_extract.mjs <archivo.spc> <carpeta_salida>
+
+spc_repack.mjs: Empaqueta una carpeta de .stx en un .spc (con compresión LZ byte-perfect).
+
+Uso: node spc_repack.mjs <carpeta_stx> <archivo_spc_salida>
+
+stx_extract.mjs: Convierte un .stx a un .txt editable con marcadores #####.
+
+Uso: node stx_extract.mjs <carpeta_stx> <carpeta_txt>
+
+stx_repack.mjs: Convierte una carpeta de .txt (con marcadores) de vuelta a .stx.
+
+Uso: node stx_repack.mjs <carpeta_txt> <carpeta_stx_salida>
+
+traductor_stx.mjs: Traduce los .txt usando la API de DeepSeek. Usa glosario.txt y personajes.txt. Aplica reglas de género gramatical. Prohíbe tildes, ñ, ¿¡, comillas tipográficas, etc.
+
+Uso: node traductor_stx.mjs <carpeta_txt_entrada> <carpeta_txt_salida> <ruta_glosario>
+
+pipeline.mjs: Automatiza todo el proceso para una carpeta de .spc (extrae, convierte, traduce, reempaqueta, copia al mod).
+
+Uso: node pipeline.mjs <carpeta_spc_originales> <carpeta_mod_destino>
+
+Procesa solo archivos que contengan _text_ en el nombre.
+
+limpiar_acentos.mjs: Elimina tildes, ñ, ¿¡, etc. de una carpeta de .txt.
+
+Uso: node limpiar_acentos.mjs <carpeta_txt_entrada> <carpeta_txt_salida>
+
+limpiar_mod.mjs: Aplica limpiar_acentos a todos los .spc de una carpeta del mod y los reemplaza.
+
+Uso: node limpiar_mod.mjs <carpeta_mod>
+
+spc_info.mjs: Muestra la estructura interna de un .spc.
+
+Uso: node spc_info.mjs <archivo.spc>
+
+verificar.mjs: Compara marcadores y etiquetas entre original y traducido.
+
+Uso: node verificar.mjs <carpeta_original> <carpeta_traducida>
+
+4. ARCHIVOS DE CONFIGURACIÓN
+glosario.txt (en traductor_v3): Términos específicos del juego (Ultimate, Killing Game, etc.).
+
+personajes.txt (en traductor_v3): Descripciones de personajes con su género y forma de hablar. Esencial para la concordancia de género.
+
+5. ESTRUCTURA DE CARPETAS CLAVE
+Scripts: C:\Users\david\traductor_v3\
+
+CPK original descomprimido: C:\Users\david\Desktop\hgy\CriPakTools_x64\partition_data_win_us.cpk_unpacked\
+
+Contiene wrd_script\003, 004, 005, 006, 007, etc.
+
+Mod de traducción: C:\Users\david\Desktop\Reloaded2\Release\Mods\CriFs.V2.Hook\CRIFsV2Hook\CPK\partition_data_win_us.cpk\
+
+Aquí se copian los .spc traducidos. Para el Prólogo: ...\wrd_script\007\
+
+Reloaded II: C:\Users\david\Desktop\Reloaded2\Release\Reloaded-II.exe
+
+Juego: C:\Program Files (x86)\Steam\steamapps\common\Danganronpa V3 Killing Harmony\
+
+6. FLUJO DE TRABAJO PARA TRADUCIR UN CAPÍTULO
+Identificar la carpeta de wrd_script que corresponde al capítulo (ej. 007 = Prólogo).
+
+Asegurarse de que el mod no tiene los .spc de ese capítulo (borrarlos si es necesario).
+
+Ejecutar: node pipeline.mjs "C:\Users\david\Desktop\hgy\CriPakTools_x64\partition_data_win_us.cpk_unpacked\wrd_script\<carpeta>" "C:\Users\david\Desktop\Reloaded2\Release\Mods\CriFs.V2.Hook\CRIFsV2Hook\CPK\partition_data_win_us.cpk\wrd_script\<carpeta>"
+
+Esperar a que termine (30-60 min).
+
+Ejecutar: node limpiar_mod.mjs "C:\Users\david\Desktop\Reloaded2\Release\Mods\CriFs.V2.Hook\CRIFsV2Hook\CPK\partition_data_win_us.cpk\wrd_script\<carpeta>"
+
+Probar en el juego lanzándolo desde Reloaded II.
+
+7. REGLAS DE TRADUCCIÓN (en traductor_stx.mjs)
+No tildes (a, e, i, o, u sin acento).
+
+No ñ (usar n).
+
+No ¿ ni ¡ (solo signos de cierre).
+
+Comillas rectas ("), no tipográficas.
+
+Guiones normales (-), no largos.
+
+Género gramatical correcto según personajes.txt.
+
+No modificar etiquetas <CLT=...> ni marcadores ##### NNNN.
+
+8. PRÓXIMOS PASOS INMEDIATOS
+Esperar a que termine el pipeline del Prólogo (007).
+
+Ejecutar limpiar_mod.mjs sobre la carpeta 007 del mod.
+
+Probar el Prólogo en el juego (debería estar todo en español, sin faltas, con género correcto).
+
+Identificar la carpeta del Capítulo 1 (probablemente 004 o 005). Se puede saber jugando y mirando el log de Reloaded II, o examinando los nombres de archivo (c01_...).
+
+Repetir el pipeline para el Capítulo 1.
+
+Continuar con los capítulos 2-6 y epílogo.
+
+Después, abordar los archivos Flash (menús, juicios, minijuegos).
+
+9. NOTAS IMPORTANTES
+No actualizar Reloaded II por ahora.
+
+No modificar el CPK original; el mod no lo toca.
+
+No ejecutar el juego mientras el pipeline está corriendo.
+
+La API key de DeepSeek está en traductor_stx.mjs. Si se pierde, hay que generar una nueva en platform.deepseek.com.
+
+Coste estimado: ~0.20€ por capítulo.
+
+El mod CRI FileSystem V2 Hook debe estar activo en Reloaded II junto con el mod de traducción (que en realidad son los archivos dentro de la carpeta del mod CRI).
+
+La estructura del mod es: CRIFsV2Hook\CPK\partition_data_win_us.cpk\wrd_script\<carpeta>\<archivo>.SPC
+
+El juego lanza desde Reloaded II para que el mod se cargue.
+
+10. CÓMO CONTINUAR EN OTRO CHAT
+Pega este resumen al inicio del nuevo chat. El nuevo asistente debería:
+
+Leer el estado actual.
+
+Verificar que los scripts y carpetas existen.
+
+Continuar desde el paso que corresponda (por ejemplo, esperar a que termine el pipeline, o lanzar el pipeline para el siguiente capítulo).
+
+Seguir las mismas reglas y usar los mismos scripts.
+
